@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
+import axios from "axios";
 
 const getColor = (props) => {
     if (props.isDragAccept) {
@@ -35,6 +36,14 @@ export default function Upload() {
     const onDrop = useCallback((acceptedFiles) => {
         acceptedFiles.forEach((file) => {
             console.log(`file: ${file.name}, ${file.type}, (${file.size} bytes)`);
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            axios
+                .post("/upload", formData, { headers: { "Content-Type": "multipart/form-data" } })
+                .then((response) => console.log(`upload ${file.name}: ${response.status} ${response.statusText}`))
+                .catch((error) => console.log(error));
         });
     }, []);
 
