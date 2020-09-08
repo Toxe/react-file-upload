@@ -5,6 +5,8 @@ An example React app that uses react-dropzone for file uploads.
 ## Dependencies
 
 - react-dropzone
+- axios
+- styled-components
 
 ## Running the application
 
